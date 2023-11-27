@@ -18,22 +18,18 @@
 #define avail_char_spec "01234567890lh.cdfsu%"
 
 typedef struct {
-  // Базовое значение 0 для всех
-  int plus;  // Нужен для такой ситуации "%+d" описано ниже
-  int space;  // 1 - Давать пробел перед положительным числом или нет
-  int minus;  // Равнение по левому краю, если 0 то по правому
-  int with;  // Ширина до скольки символов будет дополняться часть формат строки
-  int precision;  // Точность вывода числа
+  int plus;
+  int space;
+  int minus;
+  int with;
+  int precision;
   int dot;
-  char expansion;  // Модификаторы для чисел l и h
+  char expansion;
 } info;
-// "% d" пробел перед отрицательным числом отдает место под минус
-// "%+40d" просто добавлят плюс если число положительно, по умолчанию выводит
-// минус при отрицательном
 
 int s21_sprintf(char *str, const char *format, ...);
 void Parse(va_list ptr, char *str, const char *format);
-char *SetSpec(info *spec, const char *format);  //, va_list *arguments
+char *SetSpec(info *spec, const char *format);  
 char *find_flags(info *spec, const char *format);
 char *find_with(int *spec_field, const char *format);
 void insert_in_str(info *spec, const char *format, char *str, va_list argumets);

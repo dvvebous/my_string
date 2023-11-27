@@ -12,7 +12,6 @@
 int s21_sprintf(char *str, const char *format, ...) {
   va_list ptr;
   str[0] = '\0';
-  // printf("начальный str:\"%s\"\n",str);
   va_start(ptr, format);
   Parse(ptr, str, format);
   va_end(ptr);
@@ -31,7 +30,6 @@ void Parse(va_list ptr, char *str, const char *format) {
         return;
       }
       insert_in_str(&spec, format, str, ptr);
-      // Тут надо пихать в str значениче
     } else {
       s21_strncat(str, format, 1);
     }
@@ -39,11 +37,8 @@ void Parse(va_list ptr, char *str, const char *format) {
   }
 }
 
-char *SetSpec(info *spec, const char *format)  // va_list *arguments
+char *SetSpec(info *spec, const char *format)
 {
-  /*
-  Нужно сообщение о том что спецификатор неправильный
-   */
   char *result = NULL;
   format = find_flags(spec, format);
   format = (format != s21_NULL ? find_with(&(spec->with), format) : NULL);
@@ -56,7 +51,6 @@ char *SetSpec(info *spec, const char *format)  // va_list *arguments
       spec->expansion = 'l';
     else if (*format == 'h')
       spec->expansion = 'h';
-    // Дополнить оставшими флагами
     if (spec->expansion != 0) format++;
     result = (char *)format;
   }
@@ -273,13 +267,6 @@ int check_null_numb(double x) {
   return result;
 }
 void insert_u(info *spec, char *str, va_list argumets) {
-  // if (spec->space || spec->plus) {
-  //   fprintf(
-  //       stderr,
-  //       "Attempt to treat an unsigned number as if it were a signed
-  //       number\n");
-  //   return;
-  // }
   insert_d(spec, str, argumets);
 }
 
@@ -295,7 +282,6 @@ void insert_s(info *spec, char *str, va_list argumets) {
   line[0] = '\0';
   line[line_size] = '\0';
   s21_strncat(line, tmp, line_size);
-
   int real_size = MAX(line_size, spec->with);
   char result[real_size + 1];
   result[real_size] = '\0';
