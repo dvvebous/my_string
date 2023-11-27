@@ -4,8 +4,6 @@ LDFLAGS= `pkg-config --cflags --libs check`
 GCOVFLAGS=-fprofile-arcs -ftest-coverage
 TEST_LIBS = -lcheck -lm -lpthread
 
-.PHONY: all clean
-
 all: s21_string.a test gcov_report
 
 s21_string.a:
@@ -30,9 +28,7 @@ gcov_report:
 style_check:
 	cp ../materials/linters/.clang-format .
 	clang-format -n *.c *.h
-	rm .clang-format
 	
 style:
 	cp ../materials/linters/.clang-format .
 	clang-format -i *.c *.h
-	rm .clang-format
